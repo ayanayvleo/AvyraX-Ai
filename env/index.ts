@@ -11,7 +11,7 @@ export const ENV = {
 
 // Type-safe environment validation
 export function validateEnv() {
-  const requiredVars = ["POSTGRES_URL", "SUPABASE_URL", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "AI_PROTOCOL_API_KEY"]
+  const requiredVars = ["POSTGRES_URL", "SUPABASE_URL", "OPENAI_API_KEY", "AI_PROTOCOL_API_KEY"]
 
   const missing = requiredVars.filter((key) => !process.env[key])
 

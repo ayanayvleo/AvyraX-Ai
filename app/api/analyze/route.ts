@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
-import Anthropic from '@anthropic-ai/sdk'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
-
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
 })
 
 // Basic complexity analysis function
@@ -83,98 +78,29 @@ export async function POST(request: NextRequest) {
     const analysisText = query || uploadedCode
     const complexity = analyzeComplexity(analysisText)
 
-    // Debug log to check the API keys
-    console.log('OpenAI API Key length:', process.env.OPENAI_API_KEY?.length)
-    console.log('Anthropic API Key length:', process.env.ANTHROPIC_API_KEY?.length)
-
-    try {
-      let response
-      let actualModelUsed = complexity.selectedModel
-
-      // Use Anthropic for high complexity queries (Claude models)
-      if (complexity.selectedModel === 'claude-3-opus' || complexity.score >= 70) {
-        actualModelUsed = 'claude-3-5-sonnet-20241022'
-        
-        const anthropicResponse = await anthropic.messages.create({
-          model: 'claude-3-5-sonnet-20241022',
-          max_tokens: 1000,
-          messages: [
-            {
-              role: 'user',
-              content: `You are a helpful coding assistant. Provide detailed, practical advice for software development questions.\n\nQuery: ${analysisText}`
-            }
-          ],
-        })
-
-        response = {
-          choices: [{
-            message: {
-              content: anthropicResponse.content[0].type === 'text' ? anthropicResponse.content[0].text : 'Unable to process response'
-            }
-          }]
+    // For now, we'll use OpenAI for all requests
+    // Later we can add Anthropic integration for high complexity
+    const response = await openai.chat.completions.create({
+      model: complexity.selectedModel === 'claude-3-opus' ? 'gpt-4' : complexity.selectedModel,
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a helpful coding assistant. Provide detailed, practical advice for software development questions.'
+        },
+        {
+          role: 'user',
+          content: analysisText
         }
-      } else {
-        // Use OpenAI for lower complexity queries
-        response = await openai.chat.completions.create({
-          model: complexity.selectedModel,
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a helpful coding assistant. Provide detailed, practical advice for software development questions.'
-            },
-            {
-              role: 'user',
-              content: analysisText
-            }
-          ],
-          max_tokens: 1000,
-        })
-      }
+      ],
+      max_tokens: 1000,
+    })
 
-      return NextResponse.json({
-        complexity,
-        response: response.choices[0]?.message?.content,
-        model_used: actualModelUsed,
-        routing_explanation: `Selected ${actualModelUsed} based on complexity score ${complexity.score}/100`
-      })
-
-    } catch (apiError: any) {
-      console.error('AI API error details:', {
-        message: apiError.message,
-        code: apiError.code,
-        type: apiError.type,
-        status: apiError.status
-      })
-      
-      // Fallback response when AI APIs fail
-      const mockResponse = `
-**Analysis Complete (Demo Mode)**
-
-Your query about "${analysisText.substring(0, 100)}..." has been analyzed.
-
-**Complexity Assessment:**
-- Complexity Level: ${complexity.level}
-- Complexity Score: ${complexity.score}/100
-- Identified Factors: ${complexity.factors.join(', ') || 'Basic query'}
-
-**Recommended Approach:**
-For ${complexity.level.toLowerCase()} complexity queries like this, I recommend:
-
-1. **Architecture Planning**: Start with a clear system design
-2. **Implementation Strategy**: Break down into smaller, manageable components  
-3. **Best Practices**: Follow industry standards for scalability and maintainability
-4. **Testing**: Implement comprehensive testing at each layer
-
-*Note: This is a demo response. AI API error: ${apiError.code || 'Unknown error'}*
-      `
-
-      return NextResponse.json({
-        complexity,
-        response: mockResponse.trim(),
-        model_used: `${complexity.selectedModel} (Demo Mode)`,
-        routing_explanation: `Selected ${complexity.selectedModel} based on complexity score ${complexity.score}/100. Note: Using demo mode due to API error.`
-      })
-    }
+    return NextResponse.json({
+      complexity,
+      response: response.choices[0]?.message?.content,
+      model_used: complexity.selectedModel,
+      routing_explanation: `Selected ${complexity.selectedModel} based on complexity score ${complexity.score}/100`
+    })
 
   } catch (error) {
     console.error('Analysis error:', error)

@@ -1,10 +1,10 @@
 // Database configuration
 export const DATABASE_CONFIG = {
-  POSTGRES_URL: process.env.POSTGRES_URL!,
-  POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL!,
-  POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING!,
-  POSTGRES_USER: process.env.POSTGRES_USER!,
-  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD!,
-  POSTGRES_DATABASE: process.env.POSTGRES_DATABASE!,
-  POSTGRES_HOST: process.env.POSTGRES_HOST!,
+  POSTGRES_URL: process.env.postgres://postgres.jtphpvdlshkfssoqqrpd:JphNvcWuVUfm5wID@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x!,
+  POSTGRES_PRISMA_URL: process.env.postgres://postgres.jtphpvdlshkfssoqqrpd:JphNvcWuVUfm5wID@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true!,
+  POSTGRES_URL_NON_POOLING: process.env.postgres://postgres.jtphpvdlshkfssoqqrpd:JphNvcWuVUfm5wID@aws-1-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require!,
+  POSTGRES_USER: process.env.postgres!,
+  POSTGRES_PASSWORD: process.env.JphNvcWuVUfm5wID!,
+  POSTGRES_DATABASE: process.env.postgres!,
+  POSTGRES_HOST: process.env.db.jtphpvdlshkfssoqqrpd.supabase.co!,
 } as const
