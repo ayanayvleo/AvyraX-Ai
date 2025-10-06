@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
+import { BudgetPricingModal } from "@/components/budget-pricing-modal"
 
 interface ServiceInquiryModalProps {
   open: boolean
@@ -60,6 +61,7 @@ export function ServiceInquiryModal({ open, onOpenChange }: ServiceInquiryModalP
     company: "",
     details: "",
   })
+  const [showBudgetModal, setShowBudgetModal] = useState(false)
 
   const totalSteps = 5
   const progress = (step / totalSteps) * 100
@@ -90,14 +92,14 @@ export function ServiceInquiryModal({ open, onOpenChange }: ServiceInquiryModalP
       budget: selectedBudget,
       ...formData,
     })
-    // Reset form
+    onOpenChange(false)
+    setShowBudgetModal(true)
     setStep(1)
     setSelectedServices([])
     setSelectedGoal("")
     setSelectedTimeline("")
     setSelectedBudget("")
     setFormData({ name: "", email: "", company: "", details: "" })
-    onOpenChange(false)
   }
 
   const canProceed = () => {
@@ -118,294 +120,299 @@ export function ServiceInquiryModal({ open, onOpenChange }: ServiceInquiryModalP
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl bg-slate-900 border-slate-800 p-0 overflow-hidden">
-        {/* Progress Bar */}
-        <div className="h-1 bg-slate-800">
-          <div
-            className="h-full bg-gradient-to-r from-cyan-500 to-purple-600 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-800 p-0 overflow-hidden">
+          {/* Progress Bar */}
+          <div className="h-1 bg-slate-800">
+            <div
+              className="h-full bg-gradient-to-r from-cyan-500 to-purple-600 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
 
-        <div className="p-8">
-          {/* Close Button */}
-          <button
-            onClick={() => onOpenChange(false)}
-            className="absolute right-4 top-4 text-slate-400 hover:text-white transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          <div className="p-8">
+            {/* Close Button */}
+            <button
+              onClick={() => onOpenChange(false)}
+              className="absolute right-4 top-4 text-slate-400 hover:text-white transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-          {/* Step 1: Services */}
-          {step === 1 && (
-            <div className="space-y-6 animate-fade-in-up">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-2">What services are you interested in?</h2>
-                <p className="text-slate-400">Select all that apply to your needs</p>
-              </div>
+            {/* Step 1: Services */}
+            {step === 1 && (
+              <div className="space-y-6 animate-fade-in-up">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">What services are you interested in?</h2>
+                  <p className="text-slate-400">Select all that apply to your needs</p>
+                </div>
 
-              <div className="space-y-3">
-                {services.map((service) => (
-                  <button
-                    key={service.id}
-                    onClick={() => handleServiceToggle(service.id)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
-                      selectedServices.includes(service.id)
-                        ? "border-cyan-500 bg-cyan-500/10"
-                        : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
-                    }`}
-                  >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                <div className="space-y-3">
+                  {services.map((service) => (
+                    <button
+                      key={service.id}
+                      onClick={() => handleServiceToggle(service.id)}
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
                         selectedServices.includes(service.id)
-                          ? "border-cyan-500 text-cyan-400"
-                          : "border-slate-600 text-slate-400"
+                          ? "border-cyan-500 bg-cyan-500/10"
+                          : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
                       }`}
                     >
-                      {service.letter}
-                    </div>
-                    <span className="text-white font-medium">{service.label}</span>
-                  </button>
-                ))}
-              </div>
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                          selectedServices.includes(service.id)
+                            ? "border-cyan-500 text-cyan-400"
+                            : "border-slate-600 text-slate-400"
+                        }`}
+                      >
+                        {service.letter}
+                      </div>
+                      <span className="text-white font-medium">{service.label}</span>
+                    </button>
+                  ))}
+                </div>
 
-              <Button
-                onClick={handleNext}
-                disabled={!canProceed()}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Continue
-              </Button>
-            </div>
-          )}
-
-          {/* Step 2: Goal */}
-          {step === 2 && (
-            <div className="space-y-6 animate-fade-in-up">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-2">What's your primary goal?</h2>
-                <p className="text-slate-400">This helps us understand your objectives</p>
-              </div>
-
-              <div className="space-y-3">
-                {goals.map((goal) => (
-                  <button
-                    key={goal.id}
-                    onClick={() => setSelectedGoal(goal.id)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
-                      selectedGoal === goal.id
-                        ? "border-cyan-500 bg-cyan-500/10"
-                        : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
-                    }`}
-                  >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
-                        selectedGoal === goal.id ? "border-cyan-500 text-cyan-400" : "border-slate-600 text-slate-400"
-                      }`}
-                    >
-                      {goal.letter}
-                    </div>
-                    <span className="text-white font-medium">{goal.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleBack}
-                  variant="outline"
-                  className="flex-1 border-slate-700 text-white py-6 bg-transparent"
-                >
-                  Back
-                </Button>
                 <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue
                 </Button>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Step 3: Timeline */}
-          {step === 3 && (
-            <div className="space-y-6 animate-fade-in-up">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-2">What's your timeline?</h2>
-                <p className="text-slate-400">When do you need this completed?</p>
-              </div>
+            {/* Step 2: Goal */}
+            {step === 2 && (
+              <div className="space-y-6 animate-fade-in-up">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">What's your primary goal?</h2>
+                  <p className="text-slate-400">This helps us understand your objectives</p>
+                </div>
 
-              <div className="space-y-3">
-                {timelines.map((timeline) => (
-                  <button
-                    key={timeline.id}
-                    onClick={() => setSelectedTimeline(timeline.id)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
-                      selectedTimeline === timeline.id
-                        ? "border-cyan-500 bg-cyan-500/10"
-                        : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
-                    }`}
+                <div className="space-y-3">
+                  {goals.map((goal) => (
+                    <button
+                      key={goal.id}
+                      onClick={() => setSelectedGoal(goal.id)}
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
+                        selectedGoal === goal.id
+                          ? "border-cyan-500 bg-cyan-500/10"
+                          : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
+                      }`}
+                    >
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                          selectedGoal === goal.id ? "border-cyan-500 text-cyan-400" : "border-slate-600 text-slate-400"
+                        }`}
+                      >
+                        {goal.letter}
+                      </div>
+                      <span className="text-white font-medium">{goal.label}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleBack}
+                    variant="outline"
+                    className="flex-1 border-slate-700 text-white py-6 bg-transparent"
                   >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    disabled={!canProceed()}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Timeline */}
+            {step === 3 && (
+              <div className="space-y-6 animate-fade-in-up">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">What's your timeline?</h2>
+                  <p className="text-slate-400">When do you need this completed?</p>
+                </div>
+
+                <div className="space-y-3">
+                  {timelines.map((timeline) => (
+                    <button
+                      key={timeline.id}
+                      onClick={() => setSelectedTimeline(timeline.id)}
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
                         selectedTimeline === timeline.id
-                          ? "border-cyan-500 text-cyan-400"
-                          : "border-slate-600 text-slate-400"
+                          ? "border-cyan-500 bg-cyan-500/10"
+                          : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
                       }`}
                     >
-                      {timeline.letter}
-                    </div>
-                    <span className="text-white font-medium">{timeline.label}</span>
-                  </button>
-                ))}
-              </div>
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                          selectedTimeline === timeline.id
+                            ? "border-cyan-500 text-cyan-400"
+                            : "border-slate-600 text-slate-400"
+                        }`}
+                      >
+                        {timeline.letter}
+                      </div>
+                      <span className="text-white font-medium">{timeline.label}</span>
+                    </button>
+                  ))}
+                </div>
 
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleBack}
-                  variant="outline"
-                  className="flex-1 border-slate-700 text-white py-6 bg-transparent"
-                >
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNext}
-                  disabled={!canProceed()}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
-                >
-                  Continue
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 4: Budget */}
-          {step === 4 && (
-            <div className="space-y-6 animate-fade-in-up">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-2">What's your budget range?</h2>
-                <p className="text-slate-400">This helps us recommend the right solutions</p>
-              </div>
-
-              <div className="space-y-3">
-                {budgets.map((budget) => (
-                  <button
-                    key={budget.id}
-                    onClick={() => setSelectedBudget(budget.id)}
-                    className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
-                      selectedBudget === budget.id
-                        ? "border-cyan-500 bg-cyan-500/10"
-                        : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
-                    }`}
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleBack}
+                    variant="outline"
+                    className="flex-1 border-slate-700 text-white py-6 bg-transparent"
                   >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    disabled={!canProceed()}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Budget */}
+            {step === 4 && (
+              <div className="space-y-6 animate-fade-in-up">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">What's your budget range?</h2>
+                  <p className="text-slate-400">This helps us recommend the right solutions</p>
+                </div>
+
+                <div className="space-y-3">
+                  {budgets.map((budget) => (
+                    <button
+                      key={budget.id}
+                      onClick={() => setSelectedBudget(budget.id)}
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg border transition-all ${
                         selectedBudget === budget.id
-                          ? "border-cyan-500 text-cyan-400"
-                          : "border-slate-600 text-slate-400"
+                          ? "border-cyan-500 bg-cyan-500/10"
+                          : "border-slate-700 hover:border-slate-600 bg-slate-800/50"
                       }`}
                     >
-                      {budget.letter}
-                    </div>
-                    <span className="text-white font-medium">{budget.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleBack}
-                  variant="outline"
-                  className="flex-1 border-slate-700 text-white py-6 bg-transparent"
-                >
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNext}
-                  disabled={!canProceed()}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
-                >
-                  Continue
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 5: Contact Info */}
-          {step === 5 && (
-            <div className="space-y-6 animate-fade-in-up">
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-2">Let's get in touch</h2>
-                <p className="text-slate-400">We'll reach out to discuss your project</p>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Name *</label>
-                  <Input
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Your full name"
-                    className="bg-slate-800 border-slate-700 text-white"
-                  />
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded border text-sm font-semibold ${
+                          selectedBudget === budget.id
+                            ? "border-cyan-500 text-cyan-400"
+                            : "border-slate-600 text-slate-400"
+                        }`}
+                      >
+                        {budget.letter}
+                      </div>
+                      <span className="text-white font-medium">{budget.label}</span>
+                    </button>
+                  ))}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
-                  <Input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="your@email.com"
-                    className="bg-slate-800 border-slate-700 text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
-                  <Input
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    placeholder="Your company name"
-                    className="bg-slate-800 border-slate-700 text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Additional Details</label>
-                  <Textarea
-                    value={formData.details}
-                    onChange={(e) => setFormData({ ...formData, details: e.target.value })}
-                    placeholder="Tell us more about your project..."
-                    rows={4}
-                    className="bg-slate-800 border-slate-700 text-white"
-                  />
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleBack}
+                    variant="outline"
+                    className="flex-1 border-slate-700 text-white py-6 bg-transparent"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    disabled={!canProceed()}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
+                  >
+                    Continue
+                  </Button>
                 </div>
               </div>
+            )}
 
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleBack}
-                  variant="outline"
-                  className="flex-1 border-slate-700 text-white py-6 bg-transparent"
-                >
-                  Back
-                </Button>
-                <Button
-                  onClick={handleSubmit}
-                  disabled={!canProceed()}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
-                >
-                  Submit Inquiry
-                </Button>
+            {/* Step 5: Contact Info */}
+            {step === 5 && (
+              <div className="space-y-6 animate-fade-in-up">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">Let's get in touch</h2>
+                  <p className="text-slate-400">We'll reach out to discuss your project</p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Name *</label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Your full name"
+                      className="bg-slate-800 border-slate-700 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="your@email.com"
+                      className="bg-slate-800 border-slate-700 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
+                    <Input
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      placeholder="Your company name"
+                      className="bg-slate-800 border-slate-700 text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Additional Details</label>
+                    <Textarea
+                      value={formData.details}
+                      onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                      placeholder="Tell us more about your project..."
+                      rows={4}
+                      className="bg-slate-800 border-slate-700 text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleBack}
+                    variant="outline"
+                    className="flex-1 border-slate-700 text-white py-6 bg-transparent"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={!canProceed()}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-6 disabled:opacity-50"
+                  >
+                    Submit Inquiry
+                  </Button>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* BudgetPricingModal to handle Calendly booking */}
+      <BudgetPricingModal open={showBudgetModal} onOpenChange={setShowBudgetModal} />
+    </>
   )
 }

@@ -36,7 +36,7 @@ export function DashboardNav() {
           {/* Logo */}
           <div className="flex items-center h-16 px-6 border-b border-slate-800/50">
             <Link href="/">
-              <Image src="/logo.png" alt="AyvarXAi" width={180} height={40} className="h-8 w-auto" />
+              <Image src="/logo.png" alt="AvyvarXAi" width={180} height={40} className="h-8 w-auto" />
             </Link>
           </div>
 
@@ -78,7 +78,7 @@ export function DashboardNav() {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between h-16 px-6 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl">
         <Link href="/dashboard">
-          <Image src="/logo.png" alt="AyvarXAi" width={180} height={40} className="h-8 w-auto" />
+          <Image src="/logo.png" alt="AvyvarXAi" width={180} height={40} className="h-8 w-auto" />
         </Link>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-slate-300">
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

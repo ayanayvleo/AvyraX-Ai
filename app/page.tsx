@@ -52,7 +52,7 @@ export default function HomePage() {
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               <span className="text-balance animate-fade-in-up block">Transform Your Company with </span>
               <span className="holographic-text animate-fade-in-up animation-delay-200 block text-6xl md:text-8xl font-black tracking-tight">
-                AyvarXAi
+                AvyvarXAi
               </span>
             </h1>
 
@@ -322,7 +322,7 @@ export default function HomePage() {
               <Rocket className="h-16 w-16 text-cyan-400 mx-auto mb-6 animate-bounce-slow" />
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Ready to Transform Your Company?</h2>
               <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
-                Join innovative companies already using AyvarXAi to scale faster and smarter
+                Join innovative companies already using AvyvarXAi to scale faster and smarter
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button

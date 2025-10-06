@@ -14,7 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: "AyvarXAi - AI Marketing Agency Platform",
+  title: "AvyvarXAi - AI Marketing Agency Platform",
   description: "Transform your marketing with AI-powered agents",
   generator: "v0.app",
 }

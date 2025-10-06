@@ -19,7 +19,7 @@ export function Navigation() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <Image src="/logo.png" alt="AyvarXAi" width={400} height={100} className="h-16 w-auto" />
+              <Image src="/logo.png" alt="AvyvarXAi" width={400} height={100} className="h-16 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}

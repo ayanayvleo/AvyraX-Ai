@@ -102,7 +102,7 @@ export function BudgetPricingModal({ open, onOpenChange }: BudgetPricingModalPro
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
               </div>
@@ -135,35 +135,31 @@ export function BudgetPricingModal({ open, onOpenChange }: BudgetPricingModalPro
         </DialogContent>
       </Dialog>
 
-      {/* Calendly Modal */}
       <Dialog open={showCalendly} onOpenChange={handleClose}>
-        <DialogContent className="max-w-4xl bg-slate-900 border-slate-800 p-0 overflow-hidden h-[80vh]">
+        <DialogContent className="max-w-2xl max-h-[90vh] bg-slate-900 border-slate-800 p-0 overflow-hidden">
           <div className="h-1 bg-gradient-to-r from-cyan-500 to-purple-600" />
 
-          <div className="relative h-full">
-            <button
-              onClick={handleClose}
-              className="absolute right-4 top-4 z-10 text-slate-400 hover:text-white transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
+          <button
+            onClick={handleClose}
+            className="absolute right-4 top-4 z-50 text-slate-400 hover:text-white transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
 
-            <div className="h-full p-8">
-              <div className="mb-4">
-                <h2 className="text-2xl font-bold text-white mb-2">Schedule Your Consultation</h2>
-                <p className="text-slate-400">Choose a time that works best for you</p>
-              </div>
+          <div className="pt-4 px-4 pb-2">
+            <h2 className="text-2xl font-bold text-white mb-2">Schedule Your Consultation</h2>
+            <p className="text-slate-400 mb-3">Choose a time that works best for you</p>
+          </div>
 
-              {/* Calendly Embed */}
-              <div className="h-[calc(100%-80px)] bg-white rounded-lg overflow-hidden">
-                <iframe
-                  src="https://calendly.com/ayvarxai/consultation"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  title="Schedule Consultation"
-                />
-              </div>
+          <div className="px-4 pb-4">
+            <div className="rounded-lg overflow-hidden bg-white" style={{ height: "600px" }}>
+              <iframe
+                src="https://calendly.com/ayanayvleo/new-meeting"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                title="Schedule Consultation"
+              />
             </div>
           </div>
         </DialogContent>

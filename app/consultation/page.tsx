@@ -26,7 +26,7 @@ export default function ConsultationPage() {
               Book a <span className="gradient-text-cyan-purple">Free Consultation</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Schedule a personalized demo with our team to see how AyvarXAi can transform your marketing
+              Schedule a personalized demo with our team to see how AvyvarXAi can transform your marketing
             </p>
           </div>
 
@@ -143,7 +143,7 @@ export default function ConsultationPage() {
                     <div>
                       <h4 className="text-white font-medium mb-1">Live Demo</h4>
                       <p className="text-sm text-slate-400">
-                        See AyvarXAi in action with real examples and use cases relevant to your business.
+                        See AvyvarXAi in action with real examples and use cases relevant to your business.
                       </p>
                     </div>
                   </div>
@@ -155,8 +155,8 @@ export default function ConsultationPage() {
                   <h3 className="text-lg font-semibold text-white mb-2">Questions?</h3>
                   <p className="text-sm text-slate-400 mb-4">
                     Our team is here to help. Reach out anytime at{" "}
-                    <a href="mailto:hello@ayvarxai.com" className="text-cyan-400 hover:text-cyan-300">
-                      hello@ayvarxai.com
+                    <a href="mailto:hello@avyvarxai.com" className="text-cyan-400 hover:text-cyan-300">
+                      hello@avyvarxai.com
                     </a>
                   </p>
                 </CardContent>
