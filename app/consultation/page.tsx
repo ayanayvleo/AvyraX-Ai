@@ -26,7 +26,7 @@ export default function ConsultationPage() {
               Book a <span className="gradient-text-cyan-purple">Free Consultation</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Schedule a personalized demo with our team to see how AvyvarXAi can transform your marketing
+              Schedule a personalized demo with our team to see how AvyraXAi can transform your marketing
             </p>
           </div>
 
@@ -143,20 +143,20 @@ export default function ConsultationPage() {
                     <div>
                       <h4 className="text-white font-medium mb-1">Live Demo</h4>
                       <p className="text-sm text-slate-400">
-                        See AvyvarXAi in action with real examples and use cases relevant to your business.
+                        See AvyraXAi in action with real examples and use cases relevant to your business.
                       </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-slate-900/50 to-purple-600/10 backdrop-blur">
+              <Card className="border-cyan-500/20 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur">
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-white mb-2">Questions?</h3>
-                  <p className="text-sm text-slate-400 mb-4">
+                  <p className="text-sm text-slate-300 mb-4">
                     Our team is here to help. Reach out anytime at{" "}
-                    <a href="mailto:hello@avyvarxai.com" className="text-cyan-400 hover:text-cyan-300">
-                      hello@avyvarxai.com
+                    <a href="mailto:hello@avyraxai.com" className="text-cyan-400 hover:text-cyan-300">
+                      hello@avyraxai.com
                     </a>
                   </p>
                 </CardContent>

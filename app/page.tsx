@@ -52,7 +52,7 @@ export default function HomePage() {
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               <span className="text-balance animate-fade-in-up block">Transform Your Company with </span>
               <span className="holographic-text animate-fade-in-up animation-delay-200 block text-6xl md:text-8xl font-black tracking-tight">
-                AvyvarXAi
+                AvyraXAi
               </span>
             </h1>
 
@@ -122,13 +122,13 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-slate-900/50 to-transparent backdrop-blur hover:border-cyan-500/40 transition-all group glow-border">
+            <Card className="border-cyan-500/20 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur hover:border-cyan-500/40 transition-all group glow-border">
               <CardContent className="p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-cyan-500/20 mb-6 group-hover:scale-110 transition-transform group-hover:neon-glow">
                   <Bot className="h-8 w-8 text-cyan-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">AI Agents</h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6">
                   Deploy specialized AI agents to automate content creation, social media, analytics, SEO, and more.
                   Scale your marketing without scaling your team.
                 </p>
@@ -140,13 +140,13 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-slate-900/50 to-transparent backdrop-blur hover:border-purple-500/40 transition-all group glow-border">
+            <Card className="border-purple-500/20 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur hover:border-purple-500/40 transition-all group glow-border">
               <CardContent className="p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-purple-500/20 mb-6 group-hover:scale-110 transition-transform group-hover:neon-glow-purple">
                   <Megaphone className="h-8 w-8 text-purple-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">Marketing Services</h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6">
                   Full-service marketing from strategy to execution. SEO, content marketing, paid ads, social media
                   management, and brand development.
                 </p>
@@ -161,13 +161,13 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-slate-900/50 to-transparent backdrop-blur hover:border-cyan-500/40 transition-all group glow-border">
+            <Card className="border-cyan-500/20 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 backdrop-blur hover:border-cyan-500/40 transition-all group glow-border">
               <CardContent className="p-8">
                 <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-cyan-500/20 mb-6 group-hover:scale-110 transition-transform group-hover:neon-glow">
                   <Code className="h-8 w-8 text-cyan-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">Software Development</h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6">
                   Custom web apps, mobile applications, and enterprise software. From MVP to scale, we build products
                   that users love.
                 </p>
@@ -322,7 +322,7 @@ export default function HomePage() {
               <Rocket className="h-16 w-16 text-cyan-400 mx-auto mb-6 animate-bounce-slow" />
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Ready to Transform Your Company?</h2>
               <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
-                Join innovative companies already using AvyvarXAi to scale faster and smarter
+                Join innovative companies already using AvyraXAi to scale faster and smarter
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button

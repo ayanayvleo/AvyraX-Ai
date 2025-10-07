@@ -19,7 +19,7 @@ export function Navigation() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <Image src="/logo.png" alt="AvyvarXAi" width={400} height={100} className="h-16 w-auto" />
+              <Image src="/logo.png" alt="AvyraXAi" width={400} height={100} className="h-16 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -39,6 +39,9 @@ export function Navigation() {
               >
                 Pricing
               </button>
+              <Link href="/build-agent-team" className="text-sm text-slate-300 hover:text-cyan-400 transition-colors">
+                Build Your Agent Team
+              </Link>
               <Link href="/consultation" className="text-sm text-slate-300 hover:text-cyan-400 transition-colors">
                 Book Consultation
               </Link>
@@ -79,6 +82,13 @@ export function Navigation() {
                 >
                   Pricing
                 </button>
+                <Link
+                  href="/build-agent-team"
+                  className="text-sm text-slate-300 hover:text-cyan-400 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Build Your Agent Team
+                </Link>
                 <Link
                   href="/consultation"
                   className="text-sm text-slate-300 hover:text-cyan-400 transition-colors"

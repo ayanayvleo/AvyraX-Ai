@@ -341,8 +341,8 @@ export function ServiceInquiryModal({ open, onOpenChange }: ServiceInquiryModalP
             {step === 5 && (
               <div className="space-y-6 animate-fade-in-up">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Let's get in touch</h2>
-                  <p className="text-slate-400">We'll reach out to discuss your project</p>
+                  <h2 className="text-2xl font-bold text-white mb-2">Let's build your team</h2>
+                  <p className="text-slate-400">We'll help you build the perfect AI agents for your company</p>
                 </div>
 
                 <div className="space-y-4">
